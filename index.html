@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <title>Cadastro</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-image: url('https://images.pexels.com/photos/1089842/pexels-photo-1089842.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100vw;
+
+        }
+
+        h1 {
+            text-align: center;
+            text-shadow: 0 0 12px #d7c0c0;
+            /* box-shadow: 0 0 0 3px #d7c0c0 ; */
+            width: 70vw;
+            margin: 10px auto;
+        }
+
+        main {
+
+            margin: 10px auto;
+            background-color: rgba(255, 255, 255, 0.616);
+            /* box-shadow: 0 0 0 3px #d7c0c0 ; */
+        }
+
+        main thead {
+            background-color: rgba(34, 33, 33, 0.781);
+            color: white;
+            /* box-shadow: 0 0 0 3px #d7c0c0 ; */
+        }
+
+        .nome {
+            width: 50%;
+        }
+
+        .grupo-button {
+            width: 70vw;
+            margin: 10px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .input-group {
+            width: 300px;
+            margin-left: 20px;
+
+        }
+
+        .teste {
+            margin: 0 auto;
+            width: 70vw;
+        }
+
+        @media screen and (max-width: 600px) {
+            .teste {
+                width: 100vw;
+                margin-right: 20px;
+            }
+
+            .grupo-button {
+                display: flex;
+                align-items: baseline;
+                width: 100vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="teste">
+        <h1>Treinamento de cadastro em cache</h1>
+        <div class="grupo-button">
+            <button type="button" class="btn btn-success add" data-toggle="modal" data-target="#cadastrar"><i
+                    class='fas fa-user-plus' style='font-size:14px'>
+                </i> Cadastrar</button>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                </div>
+                <input id="pesquisa" value="" type="text" class="form-control" placeholder="Digite o nome"
+                    aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <main>
+            <table id="tabela-pessoa" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th class="nome" scope="col ">Nome</th>
+                        <th scope="col">Idade</th>
+                        <th scope="col">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="linha-tabela"></tbody>
+            </table>
+        </main>
+    </div>
+    <!-- Modal de cadastro -->
+    <div class="modal fade" id="cadastrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nome</label>
+                        <input id="nome" type="text" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="Digite o nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Idade</label>
+                        <input type="number" id="idade" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="Digite a idade">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-salvar" class="btn btn-primary">Slavar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancela</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de Atualizar -->
+    <div class="modal fade" id="atualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nome</label>
+                        <input id="nome-atualizar" type="text"  class="form-control"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Idade</label>
+                        <input type="number" id="idade-atualizar" value="${idade}" class="form-control"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite a idade">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-atualizar"  class="btn btn-primary"
+                       >Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancela</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script>
+        let nome = document.getElementById('nome');
+        let nomeAtualizar = document.getElementById('nome-atualizar');
+        let idade = document.getElementById('idade');
+        let idadeAtualizar = document.getElementById('idade-atualizar');
+        let linhaTabela = document.getElementById('linha-tabela')
+        let pesquisa = document.getElementById('pesquisa')
+        let btnSalvar = document.getElementById('btn-salvar');
+        let modalAtualizar = document.getElementById('atualizar')
+        let btnAtualizar = document.getElementsByClassName('atualizar')
+        let btnSalvarAtualizar = document.getElementById('btn-atualizar');
+
+        let pessoas = [{
+                id: 1,
+                nome: "Alessandro Barbosa Vitorio",
+                idade: 40,
+
+            },
+            {
+                id: 2,
+                nome: "Erick Pietro Vitorio",
+                idade: 13,
+
+            },
+            {
+                id: 3,
+                nome: "Snadra Gomes Vitorio",
+                idade: 45,
+
+            },
+            {
+                id: 4,
+                nome: "Ononéia Vitorio",
+                idade: 1,
+
+            },
+
+
+
+        ]
+
+
+        //  Pesquisa função de PESQUISA
+        function procura(busca, arr) {
+            const res = arr.filter(item => {
+                if (busca) {
+                    const resultado = item.nome.toLowerCase().indexOf(busca) !== -1
+                    return resultado
+                } else if (busca === '') {
+                    return item;
+
+                } else {
+                    return alert('busca não encontrada!')
+                }
+            })
+            return res
+        }
+
+
+        // Função de INSERT
+        function inserir(arr, nome, idade) {
+            const addPessoa = {
+                id: arr.length > 0 ? arr[arr.length - 1].id + 1 : 1,
+                nome: nome,
+                idade: idade,
+
+            }
+            pessoas.push(addPessoa)
+            linhaTable(arr)
+            console.log(addPessoa)
+            alert("Cadastro salvo com sucesso!")
+        }
+        //Função de UPDATE
+        function atualizar(arr,id, nome, idade) {
+            function buscarPosicao(obj) {
+                return obj['id'] === id
+            }
+            const pos = pessoas.findIndex(buscarPosicao)
+            pessoas[pos].nome = nome
+            pessoas[pos].idade = idade
+            alert("Cadastro Atualizado com Sucesso!")
+
+        }
+
+        // Função de DELETE
+        function excluir(id) {
+            function buscarPosicao(obj) {
+                return obj['id'] === id
+            }
+            let validacao = confirm("Tem certeza que constaria de excluir o cadastro?")
+            if (validacao) {
+                const pos = pessoas.findIndex(buscarPosicao)
+                pessoas.splice(pos, 1)
+                linhaTable(pessoas)
+                alert('Pessoa deletada com sucesso!')
+            } else {
+                return
+            }
+        }
+        // ######### função Criando Linhas da tabelas################
+        function linhaTable(arr) {
+            let tr = '';
+            arr.map(linha => {
+                tr += `
+                <tr>
+                 <th scope="row">${linha.id}</th>
+                    <td>${linha.nome}</td>
+                    <td>${linha.idade}</td>
+                    <td>
+                        <button type="button"  class="btn btn-info atualizar" data-toggle="modal" data-target="#atualizar"><i class='fas fa-pen' style='font-size:14px'>
+                            </i> Atualizar</button>
+                        <button type="button" onclick="excluir(${linha.id})" class="btn btn-danger delete"><i class='far fa-trash-alt' style='font-size:14px'>
+                            </i> Deletar</button>
+                    </td>
+                </tr>
+        `
+            })
+            return linhaTabela.innerHTML = tr
+        }
+        // ######### função Criando Linhas da tabelas################
+
+      
+        if (pesquisa.value === "") {
+            pesquisa.addEventListener('keyup', (e) => {
+                const pesq = procura(pesquisa.value, pessoas)
+                linhaTable(pesq)
+            })
+        }
+       
+        linhaTable(pessoas)
+       
+        for (let index = 0; index < btnAtualizar.length; index++) {
+           btnAtualizar[index].addEventListener('click',e =>{
+                      
+           btnSalvarAtualizar.addEventListener('click', e =>{
+            alert(index)
+           })
+         
+           })
+        }
+
+
+
+
+
+
+        let btnDelete = document.getElementsByClassName('delete')
+        // chamada de inserir cadastro
+        btnSalvar.addEventListener('click', (e) => {
+            $('#cadastrar').modal('hide')
+            inserir(pessoas, nome.value, idade.value)
+            nome.value = '';
+            idade.value = ''
+        })
+    </script>
+</body>
+
+</html>
